@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, FormBox } from './styles'
 import api from '../../services/api'
-import { Form, Input, Select } from '@rocketseat/unform'
+import { Form, Input, Scope, Select } from '@rocketseat/unform'
 
 const Activity: React.FC = () => {
 
@@ -26,7 +26,7 @@ const Activity: React.FC = () => {
   ]
 
   function handleSubmit(data: object): void {
-    api.post('create', data)
+    api.post('/', data)
       .then((response) => {
         console.log(response)
         alert('Cadastrado com Sucesso')
@@ -39,14 +39,16 @@ const Activity: React.FC = () => {
     <FormBox>
       <h1>Cadastrar uma Atividade</h1>
       <Form onSubmit={handleSubmit}>
-        <Input name='activityName' placeholder='Nome da Atividade' />
+        <Input name='name' placeholder='Nome da Atividade' />
         <Select name='kalacheCapital' options={kalacheCapital} placeholder='Escolha um Capital' />
         <Select name='lifeAspect' options={lifeAspect} placeholder='Aspecto da Roda da Vida' />
         <Input name='totalInvest' placeholder='Investimento em R$' />
-        <Input name='cycleStartDate' type='date' placeholder='Data de Inicio' />
-        <Input name='cycleEndDate' type='date' placeholder='Data de Termino' />
-        <Input name='cycleQuantity' type='number' placeholder='Qtd. de Ciclos' />
-        <Input name='enrollQuantities' type='number' placeholder='Qtd. de Inscritos' />
+        <Scope path="cycle">
+          <Input name='start' type='date' placeholder='Data de Inicio' />
+          <Input name='end' type='date' placeholder='Data de Termino' />
+          <Input name='quantity' type='number' placeholder='Qtd. de Ciclos' />
+        </Scope>
+        <Input name='enrollQuantity' type='number' placeholder='Qtd. de Inscritos' />
         <button type='submit'>Enviar </button>
       </Form>
       <a href="dashboard">

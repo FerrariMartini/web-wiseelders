@@ -5,33 +5,35 @@ import api from '../../services/api'
 
 
 interface activity {
-  id: string,
-  activityName: string,
+  _id: string,
+  name: string,
   kalacheCapital: string,
   lifeAspect: string,
   totalInvest: string,
-  cycleStartDate: string,
-  cycleEndDate: string,
-  cycleQuantity: string,
-  enrollQuantities: string
+  cycle: {
+    start: Date,
+    end: Date,
+    quantity: Number,
+  },
+  enrollQuantity: string
 }
 
 const Dashboard: React.FC = () => {
   const [activities, setActivities] = useState<activity[]>([])
 
   useEffect(() => {
-    api.get('allActivities').then(response => {
+    api.get('/').then(response => {
       const activities = response.data
       setActivities(activities)
     }).catch((err) => {
       console.log('>> ERROR', err)
       alert('Servico indisponivel no momento. Tente novamente mais tarde')
     })
-  }, [])
+  }, [activities])
 
   function handleDelete(data: any) {
     const activityId = data?.currentTarget?.id
-    api.delete(`delete/${activityId}`,)
+    api.delete(`${activityId}`,)
       .then((response) => {
         console.log(response)
         alert('Atividade deletada com Sucesso')
@@ -61,16 +63,16 @@ const Dashboard: React.FC = () => {
             </thead>
             <tbody>
               {activities.map(act => (
-                <tr key={act.id}>
-                  <td>{act.activityName}</td>
+                <tr key={act._id}>
+                  <td>{act.name}</td>
                   <td>{act.kalacheCapital}</td>
                   <td>{act.lifeAspect}</td>
-                  <td>{act.cycleStartDate}</td>
-                  <td>{act.cycleEndDate}</td>
-                  <td>{act.cycleQuantity}</td>
-                  <td>{act.enrollQuantities}</td>
+                  <td>{act.cycle.start}</td>
+                  <td>{act.cycle.end}</td>
+                  <td>{act.cycle.quantity}</td>
+                  <td>{act.enrollQuantity}</td>
                   <td>R$ {act.totalInvest}</td>
-                  <td><button id={act.id} onClick={handleDelete} >Excluir</button> </td>
+                  <td><button id={act._id} onClick={handleDelete} >Excluir</button> </td>
                 </tr>
               ))}
             </tbody>
