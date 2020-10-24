@@ -22,6 +22,11 @@ const Dashboard: React.FC = () => {
   const [activities, setActivities] = useState<activity[]>([])
 
   useEffect(() => {
+    loadActivities()
+  }, [])
+
+
+  function loadActivities() {
     api.get('/').then(response => {
       const activities = response.data
       setActivities(activities)
@@ -29,18 +34,20 @@ const Dashboard: React.FC = () => {
       console.log('>> ERROR', err)
       alert('Servico indisponivel no momento. Tente novamente mais tarde')
     })
-  }, [activities])
+  }
+
 
   function handleDelete(data: any) {
     const activityId = data?.currentTarget?.id
     api.delete(`${activityId}`,)
       .then((response) => {
-        console.log(response)
+        loadActivities()
         alert('Atividade deletada com Sucesso')
       }).catch((err) => {
-        console.log('>> ERROR', err)
+        loadActivities()
         alert('Erro ao deletar tente novamente')
       })
+
   }
 
   return (
@@ -67,8 +74,8 @@ const Dashboard: React.FC = () => {
                   <td>{act.name}</td>
                   <td>{act.kalacheCapital}</td>
                   <td>{act.lifeAspect}</td>
-                  <td>{act.cycle.start}</td>
-                  <td>{act.cycle.end}</td>
+                  <td>{new Date(act.cycle.start).toLocaleDateString("pt-BR")}</td>
+                  <td>{new Date(act.cycle.end).toLocaleDateString("pt-BR")}</td>
                   <td>{act.cycle.quantity}</td>
                   <td>{act.enrollQuantity}</td>
                   <td>R$ {act.totalInvest}</td>
