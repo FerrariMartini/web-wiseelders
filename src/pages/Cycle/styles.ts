@@ -4,33 +4,15 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  thead {
-    font-size: 16px;
-    font-weight: 500;
-    background-color: #ff9000;
-    text-align: center;
-  }
-  th {
-    padding: 10px;
-  }
-
-  td {
-    text-align: center;
-    padding: 10px;
-    //border: 1px red solid;
-  }
 `;
 
-export const TableBox = styled.div`
+export const FormBox = styled.div`
+  width: 50%;
+  height: 50%;
   background: #fff;
-
-  .link-class {
-    margin: 0px;
-  }
 
   a {
     font-size: 18px;
@@ -44,4 +26,5 @@ export const TableBox = styled.div`
   a:hover {
     color: #666360;
   }
+
 `;

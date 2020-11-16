@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, FormBox } from './styles'
 import api from '../../services/api'
-import { Form, Input, Scope, Select } from '@rocketseat/unform'
+import { Form, Input, Select } from '@rocketseat/unform'
 
 const Activity: React.FC = () => {
 
@@ -43,12 +43,10 @@ const Activity: React.FC = () => {
         <Select name='kalacheCapital' options={kalacheCapital} placeholder='Escolha um Capital' />
         <Select name='lifeAspect' options={lifeAspect} placeholder='Aspecto da Roda da Vida' />
         <Input name='totalInvest' placeholder='Investimento em R$' />
-        <Scope path="cycle">
-          <Input name='start' type='date' placeholder='Data de Inicio' />
-          <Input name='end' type='date' placeholder='Data de Termino' />
-          <Input name='quantity' type='number' placeholder='Qtd. de Ciclos' />
-        </Scope>
-        <Input name='enrollQuantity' type='number' placeholder='Qtd. de Inscritos' />
+        <Input name='enrollQuantity' type='number' placeholder='Qtd. de Vagas por Ciclo' />
+        <Input name='start' type='date' placeholder='Data de Inicio' />
+        <Input name='end' type='date' placeholder='Data de Termino' />
+        <Input name='cycleQuantity' type='number' placeholder='Qtd. de Ciclos' />
         <button type='submit'>Enviar </button>
       </Form>
       <a href="dashboard">
